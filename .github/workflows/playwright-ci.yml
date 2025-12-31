@@ -14,8 +14,10 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     permissions:
-      checks: write
       contents: write
+      pages: write
+      id-token: write
+      checks: write
     
     strategy:
       fail-fast: false
@@ -69,3 +71,12 @@ jobs:
           path: 'test-results/results.xml'
           reporter: 'java-junit'
           fail-on-error: false
+
+      - name: Deploy Report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./playwright-report
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'    
