@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [24.x]
     
     steps:
       - uses: actions/checkout@v4
@@ -63,6 +63,6 @@ jobs:
         if: always()
         with:
           name: Playwright Test Results (Node ${{ matrix.node-version }})
-          path: 'test-results/**.xml'
+          path: 'test-results/results.xml'
           reporter: 'java-junit'
           fail-on-error: false
